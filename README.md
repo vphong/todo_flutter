@@ -13,6 +13,7 @@ Resources used:
 * [iampawan/Flutter-UI-Kit](https://github.com/iampawan/Flutter-UI-Kit)
 * [Sergi & Replace: Planets-Flutter: from design to app](https://sergiandreplace.com/planets-flutter-from-design-to-app/)
 * [hackernoon: Scaleable app structure in Flutter](https://hackernoon.com/scalable-app-structure-in-flutter-dad61a4bc389)
+* [Dart: Effective Dart: Style](https://www.dartlang.org/guides/language/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores)
 
 ## Getting Started
 
