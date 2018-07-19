@@ -35,7 +35,22 @@ final AppBar appBar = new AppBar(
       color: Colors.white
     ),
   ),
+  centerTitle: true,
   // TODO: navigation icons
+  leading: new IconButton( // menu button
+    icon: const Icon(Icons.menu),
+    onPressed: () {
+      return;
+    }
+  ),
+  actions: <Widget>[
+    new IconButton( // menu button
+      icon: const Icon(Icons.search),
+      onPressed: () {
+        return;
+      }
+    ),
+  ],
   backgroundColor: new Color.fromRGBO(0, 0, 0, 0.0),
   elevation: 0.0,
 );
