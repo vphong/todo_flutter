@@ -18,19 +18,32 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: new Column(
+    final Size screenSize = MediaQuery.of(context).size;
+
+    // make sure body fills space with Expanded
+    var body = new Expanded(
+      flex: 1,
+      child: new Container(
+        padding: EdgeInsets.all(_padding),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new SplashInfo(),
+            new TodoListCard()
+          ],
+        ),
+      ),
+    );
+
+    return new Container(// container for gradient bg
+      width: screenSize.width,
+      height: screenSize.height,
+      child: new Column( // contains appBar + body column
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           appBar,
-          new Container(
-            child: new Column(
-              children: <Widget>[
-                new SplashInfo(),
-                new TodoListCard()
-              ],
-            ),
-            padding: EdgeInsets.all(_padding),
-          ),
+          body
         ],
       ),
       decoration: new BoxDecoration(
@@ -65,11 +78,8 @@ class TodoListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return new Container(
-      constraints: new BoxConstraints(
-        maxHeight: 300.0,
-        minWidth: MediaQuery.of(context).size.width * 0.9,
-      ),
+    return new Expanded( // expanded to fill body space
+      flex: 1,
       child: new Card(
         elevation: 10.0,
         margin: EdgeInsets.only(right: _padding/2.0, left: _padding/2.0),
@@ -77,37 +87,14 @@ class TodoListCard extends StatelessWidget {
           borderRadius: new BorderRadius.circular(8.0)
         ),
         child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             new Text(_list.todosCount + " Tasks"),
             new Text(_list.name),
           ],
-          mainAxisSize: MainAxisSize.max,
         ),
       ),
     );
-
-    // return new Column(
-    //   // width: MediaQuery.of(context).size.width - _padding,
-    //   children: <Widget>[
-    //     new Expanded(
-    //       child: new Card(
-    //         elevation: 10.0,
-    //         margin: EdgeInsets.only(right: _padding/2.0, left: _padding/2.0),
-    //         shape: new RoundedRectangleBorder(
-    //           borderRadius: new BorderRadius.circular(8.0)
-    //         ),
-    //         child: new Column(
-    //           children: <Widget>[
-    //             new Text(_list.todosCount + " Tasks"),
-    //             new Text(_list.name),
-    //           ],
-    //           mainAxisSize: MainAxisSize.max,
-    //         ),
-    //       ),
-        
-    //     )
-
-    //   ],
-    // );
   }
 }
