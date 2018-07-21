@@ -24,7 +24,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
     var body = new Expanded(
       flex: 1,
       child: new Container(
-        padding: EdgeInsets.all(_padding),
+        padding: EdgeInsets.only(left: _padding, right: _padding, bottom: _padding*2),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
@@ -63,7 +63,13 @@ class SplashInfo extends StatelessWidget {
       child: new ListTileTheme(
         textColor: Colors.white,
         child: new ListTile(
-          title: new Text(_user.name),
+          title: new Text(
+            "Hello, ${_user.name}.", 
+            style: const TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.w500
+            ),
+          ),
           subtitle: const Text("Cool."),
         ),
       ),
@@ -73,10 +79,34 @@ class SplashInfo extends StatelessWidget {
 
 class TodoListCard extends StatelessWidget {
 
-  TodoList _list = new TodoList();
+  final TodoList _list = new TodoList();
 
   @override
   Widget build(BuildContext context) {
+
+    var todolistInfoContainer = new Container(
+          padding: EdgeInsets.all(_padding/2),
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new Text(
+                "${_list.todosCount} Tasks",
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14.0,
+                ),
+              ),
+              new Text(
+                _list.name,
+                style: const TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ],
+          ),
+        );
 
     return new Expanded( // expanded to fill body space
       flex: 1,
@@ -90,11 +120,13 @@ class TodoListCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            new Text(_list.todosCount + " Tasks"),
-            new Text(_list.name),
+            // TodoListCardBar
+            todolistInfoContainer
           ],
-        ),
+        )
       ),
     );
   }
 }
+
+// TODO: TodoListCardBar
