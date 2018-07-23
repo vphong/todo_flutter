@@ -1,4 +1,7 @@
+import 'dart:collection';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+
 import 'package:uuid/uuid.dart';
 
 // use uuid.v1 for time-based uuids, v4 for random
@@ -19,12 +22,13 @@ class TodoList {
   
   final String _id = uuid.v1();
   String _name = "Todo";
-  Icon _icon = new Icon(Icons.check_box);
-  final List<Todo> _todos = [];
+  IconData _iconData = Icons.check_box;
+  final List<Todo> _todos = <Todo>[];
   double _progress = 0.0;
+  int _todosCount = 0;
 
   // Creates an empty TodoList.
-  TodoList();
+  // TodoList();
 
   String get id => _id;
 
@@ -32,37 +36,44 @@ class TodoList {
 
   // Name methods
   String get name => _name;
-  set newName(String name) {
+  void updateName(String name) {
     _name = name;
   }
 
   ///// Icon methods
-  Icon get icon => _icon;
-  set newIcon(Icon icon) {
-    _icon = icon;
+  IconData get iconData => _iconData;
+  void updateIcon(IconData _iconData) {
+    _iconData = _iconData;
   }
 
-  ///// Todo methods
-  List<Todo> get todos => _todos;
+  ///// List<Todo> methods
+  UnmodifiableListView<Todo> get todos => UnmodifiableListView(_todos);
 
-  set add(Todo todo) {
+  int get todoCount => _todosCount;
+
+  void add(Todo todo) {
     _todos.add(todo);
+    _todosCount = _todos.length;
+    print(_todos);
   }
 
-  set delete(Todo todo) {
+  void remove(Todo todo) {
     _todos.remove(todo);
   }
-
-  String get todosCount => _todos.length.toString();
 
 }
 
 class Todo {
   final String id = uuid.v1();
-  String name = "";
-  String notes = "";
+  String name = null;
+  String notes = null;
   bool complete = false;
 
   // Creates empty Todo.
   Todo();
+
+  @override 
+  String toString() => 
+    "{ id: ${this.id}; name: ${this.name}; " +
+    "notes: ${this.notes}; complete: ${this.complete}}";
 }

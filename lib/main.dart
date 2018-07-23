@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'src/screens/todo_list.dart';
+
+import 'package:todo_flutter/src/screens/todo_list.dart';
 
 void main() => runApp(new MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Todo',
       home: new Scaffold(
-        body: new TodoListScreen()
+        body: new TodoListScreen(),
       ),
     );
   }

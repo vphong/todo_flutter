@@ -2,19 +2,32 @@ import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../util.dart';
-import '../models.dart';
+import 'package:todo_flutter/src/bloc/todo_list.dart';
+import 'package:todo_flutter/src/models.dart';
+import 'package:todo_flutter/src/util.dart';
 
 const double _padding = 25.0;
 
 class TodoListScreen extends StatefulWidget {
-  // final Data state;
-  _TodoListScreenState createState() => new _TodoListScreenState();
-}
+
+  @override
+  _TodoListScreenState createState() => new _TodoListScreenState(); 
+} 
 
 class _TodoListScreenState extends State<TodoListScreen> {
+  TodoListBloc _todoListBloc = new TodoListBloc();
 
-  final TodoList _todoList;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _todoListBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +49,22 @@ class _TodoListScreenState extends State<TodoListScreen> {
       ),
     );
 
-    return new Container(// container for gradient bg
-      width: screenSize.width,
-      height: screenSize.height,
-      child: new Column( // contains appBar + body column
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          appBar,
-          body
-        ],
-      ),
-      decoration: new BoxDecoration(
-        gradient: pinkToOrangeGradient,
-      ),
+    return new TodoListProvider(
+      todoListBloc: _todoListBloc,
+      child: new Container( // container for gradient bg
+        width: screenSize.width,
+        height: screenSize.height,
+        child: new Column( // contains appBar + body column
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            appBar,
+            body
+          ],
+        ),
+        decoration: new BoxDecoration(
+          gradient: pinkToOrangeGradient,
+        ),
+      )
     );
   }
 }
@@ -79,34 +95,93 @@ class SplashInfo extends StatelessWidget {
 
 class TodoListCard extends StatelessWidget {
 
-  final TodoList _list = new TodoList();
+  // final TodoList _list = new TodoList();
 
   @override
   Widget build(BuildContext context) {
 
-    var todolistInfoContainer = new Container(
-          padding: EdgeInsets.all(_padding/2),
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              new Text(
-                "${_list.todosCount} Tasks",
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14.0,
+    TodoListBloc todoListBloc = TodoListProvider.of(context).todoListBloc;
+
+    var todoListCardBar = new Container(
+      padding: EdgeInsets.all(_padding/2),
+      child: new Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize:  MainAxisSize.max,
+        children: <Widget>[
+          new StreamBuilder(
+            stream: todoListBloc.iconData,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print("error");
+                return new Text("Error: ${snapshot.error}");
+              }
+              return new Expanded(
+                flex: 1,
+                child: new Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(bottom: _padding/2),
+                  child: new Icon(snapshot.data),
                 ),
-              ),
-              new Text(
-                _list.name,
-                style: const TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.w500
-                ),
-              ),
-            ],
+              );
+            },
           ),
-        );
+          const Icon(Icons.more_vert),
+        ],
+      )
+    );
+
+    var todolistInfoContainer = new Expanded(
+      child: new Container(
+        padding: EdgeInsets.all(_padding/2),
+        child: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            // # of tasks text
+            new StreamBuilder<int>(
+              stream: todoListBloc.todoCount,
+              initialData: 0,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return new Text("Error: ${snapshot.error}");
+                }
+                return new Text(
+                  "${snapshot.data} Tasks",
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.0,
+                  ),
+                );
+              }
+            ),
+            // list name text
+            new StreamBuilder(
+              stream: todoListBloc.name,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return new Text("Error: ${snapshot.error}");
+                }
+                if (snapshot.data != null) {
+                  return new Text(
+                    snapshot.data,
+                    style: const TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w500
+                    ),
+                  );
+                }
+                else {
+                  return new Text("Empty name.");
+                }
+              },
+            )
+          ],
+        ),
+      )
+    );
+
 
     return new Expanded( // expanded to fill body space
       flex: 1,
@@ -120,8 +195,21 @@ class TodoListCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // TodoListCardBar
-            todolistInfoContainer
+            todoListCardBar,
+            todolistInfoContainer,
+            new RaisedButton(
+              child: const Text("Add a todo"),
+              onPressed: () {
+                todoListBloc.addTodo.add(new Todo());
+              },
+            ),
+            // new RaisedButton(
+            //   child: const Text("Remove a todo"),
+            //   onPressed: () {
+            //     todoListBloc.addTodo.remove();
+            //   },
+            // ),
+            
           ],
         )
       ),
