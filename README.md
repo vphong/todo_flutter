@@ -18,6 +18,7 @@ Resources used:
 * [Dart: Effective Dart: Style](https://www.dartlang.org/guides/language/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores)
 * [Build reactive mobile apps with Flutter (Google I/O '18)](https://www.youtube.com/watch?v=RS36gBEp8OI)
 * [Build Native Mobile Apps with Flutter | Udacity](https://www.udacity.com/course/build-native-mobile-apps-with-flutter--ud905)
+* [Flutter Login Animation](https://blog.geekyants.com/flutter-login-animation-ab3e6ed4bd19)
 
 ## Getting Started
 

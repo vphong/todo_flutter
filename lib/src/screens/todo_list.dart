@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // import 'package:carousel_slider/carousel_slider.dart';
 
-import 'package:todo_flutter/src/bloc/todo_list.dart';
+import 'package:todo_flutter/src/bloc/todo_list_provider.dart';
+import 'package:todo_flutter/src/bloc/todo_list_bloc.dart';
 import 'package:todo_flutter/src/screens/list_info.dart';
 import 'package:todo_flutter/src/models.dart';
 import 'package:todo_flutter/src/util.dart';

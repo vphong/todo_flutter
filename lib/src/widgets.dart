@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo_flutter/src/bloc/todo_list.dart';
+import 'package:todo_flutter/src/bloc/todo_list_bloc.dart';
 import 'package:todo_flutter/src/models.dart';
 import 'package:todo_flutter/src/util.dart';
 
-// simply a display container, stateless
+// simply a display container for TodoList info, stateless
 class TodoListSummary extends StatelessWidget {
+  // not sure if blocs should be passed this way
   final TodoListBloc todoListBloc;
 
   TodoListSummary({

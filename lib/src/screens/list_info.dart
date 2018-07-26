@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo_flutter/src/bloc/todo_list.dart';
-import 'package:todo_flutter/src/models.dart';
+import 'package:todo_flutter/src/bloc/todo_list_bloc.dart';
 import 'package:todo_flutter/src/util.dart';
 import 'package:todo_flutter/src/widgets.dart';
 
@@ -16,7 +15,6 @@ class ListInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-      // TODO: implement build
       return new Container(
         width: screenSize.width,
         height: screenSize.height,
