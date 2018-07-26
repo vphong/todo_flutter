@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:todo_flutter/src/bloc/todo_list.dart';
 import 'package:todo_flutter/src/models.dart';
 import 'package:todo_flutter/src/util.dart';
 
 // simply a display container, stateless
 class TodoListSummary extends StatelessWidget {
-  final TodoList todoList;
+  final TodoListBloc todoListBloc;
 
   TodoListSummary({
-    this.todoList
+    this.todoListBloc
   });
 
   @override
   Widget build(BuildContext context) {
-      return new Expanded(
-        child: new Container(
+    // var todoListBloc = TodoListProvider.of(context).todoListBloc;
+      return new Container(
           padding: EdgeInsets.all(defaultPadding/2),
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +62,6 @@ class TodoListSummary extends StatelessWidget {
               )
             ],
           ),
-        )
       );
     }
 }

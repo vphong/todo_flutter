@@ -103,7 +103,7 @@ class TodoListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    TodoListBloc todoListBloc = TodoListProvider.of(context).todoListBloc;
+    TodoListBloc _todoListBloc = TodoListProvider.of(context).todoListBloc;
 
     var _todoListIcon =
 //    new ShaderMask(
@@ -142,7 +142,6 @@ class TodoListCard extends StatelessWidget {
       )
     );
 
-    var todolistInfoContainer = new TodoListSummary();
 
 
     return new Expanded( // expanded to fill body space
@@ -158,7 +157,7 @@ class TodoListCard extends StatelessWidget {
           Navigator.push(
             context, 
             new MaterialPageRoute(
-              builder: (_) => ListInfoScreen()
+              builder: (_) => ListInfoScreen(todoListBloc: _todoListBloc,)
             )
           );
         },
@@ -170,7 +169,13 @@ class TodoListCard extends StatelessWidget {
             new ListTile(
               title: new Text("Tap to open list info."),
             ),
-            todolistInfoContainer,
+            new Expanded(
+              flex: 1,
+              child: new Hero(
+                tag: 'listInfo',
+                child: new TodoListSummary(todoListBloc: _todoListBloc,),
+              )
+            ),
             // new RaisedButton(
             //   child: const Text("Add a todo"),
             //   onPressed: () {
