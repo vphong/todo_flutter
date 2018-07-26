@@ -1,6 +1,7 @@
 // util funcs
 import 'package:flutter/material.dart';
 
+final double defaultPadding = 25.0;
 final String appName = "Todo";
 final Gradient pinkToOrangeGradient = new LinearGradient(
   colors: [

@@ -32,11 +32,14 @@ class TodoListBloc {
   static TodoList _todoList = new TodoList();
 
   // Output
-  Observable<String> get name => _nameSubject.stream;
+  Stream<String> get name => _nameSubject.stream;
   final _nameSubject = BehaviorSubject<String>(seedValue:  _todoList.name);
 
   Stream<IconData> get iconData => _iconSubject.stream;
   final _iconSubject = BehaviorSubject<IconData>(seedValue: _todoList.iconData);
+
+  Stream<TodoList> get todoList => _todoListSubject.stream;
+  final _todoListSubject = BehaviorSubject<TodoList>(seedValue: _todoList); 
 
   // output: todos list
   // keep as <List<Todo>> to keep list info - length, order, etc.
