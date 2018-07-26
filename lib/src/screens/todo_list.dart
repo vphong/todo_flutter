@@ -71,7 +71,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
 class SplashInfo extends StatelessWidget {
 
-  Profile _user = Profile();
+  final Profile _user = Profile();
 
   @override
   Widget build(BuildContext context) {
@@ -205,18 +205,50 @@ class TodoListCard extends StatelessWidget {
           children: <Widget>[
             todoListCardBar,
             todolistInfoContainer,
-            new RaisedButton(
-              child: const Text("Add a todo"),
-              onPressed: () {
-                todoListBloc.addTodo.add(new Todo());
-              },
-            ),
+            // new RaisedButton(
+            //   child: const Text("Add a todo"),
+            //   onPressed: () {
+            //     todoListBloc.addTodo.add(new Todo());
+            //   },
+            // ),
             // new RaisedButton(
             //   child: const Text("Remove a todo"),
             //   onPressed: () {
             //     todoListBloc.addTodo.remove();
             //   },
             // ),
+            // TODO: progress indicator
+            new Container(
+              padding: EdgeInsets.all(_padding),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  // progress bar
+
+                  // new StreamBuilder(
+                  //   stream: todoListBloc.todoCount,
+                  //   builder: (context, snapshot) {
+
+                  //     if (snapshot.hasError) {
+                  //       return new Text("Error: ${snapshot.error}");
+                  //     }
+
+                  //     if (snapshot.data != null) {
+                  //       return new Text("Data: ${snapshot.data}");
+                  //       // return new LinearProgressIndicator(
+                  //       //   value: .5,
+                  //       //   backgroundColor: Colors.grey,
+                  //       //   // valueColor: Colors.pink,
+                  //       // );
+                  //     }
+                  //     else return new Text("");
+                  //   },
+                  // )
+                  // percent text
+                ],
+              )
+            )
             
           ],
         )

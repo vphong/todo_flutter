@@ -65,8 +65,8 @@ class TodoList {
 
 class Todo {
   final String id = uuid.v1();
-  String name = null;
-  String notes = null;
+  String name = "";
+  String notes = "";
   bool complete = false;
 
   // Creates empty Todo.
