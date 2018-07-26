@@ -2,6 +2,8 @@
 
 A to-do app based on [Jae-seong Jeong's iPhone X Todo App Concept](https://www.uplabs.com/posts/iphone-x-todo-concept)
 
+Current preview: ![preview](preview.png)
+
 Jae-seong Jeong's Concept| Actual App - iOS | Actual App - Android
 :---: | :---: | :---:
 ![Uplabs gif](https://assets.materialup.com/uploads/da09280d-54f6-48dd-ab80-b63d0c00e1d9/preview.gif)| WIP | WIP

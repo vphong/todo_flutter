@@ -102,31 +102,39 @@ class TodoListCard extends StatelessWidget {
 
     TodoListBloc todoListBloc = TodoListProvider.of(context).todoListBloc;
 
+    var _todoListIcon =
+//    new ShaderMask(
+//      shaderCallback: (_) {
+//        return pinkToOrangeGradient.createShader(_);
+//        },
+//      blendMode: BlendMode.modulate,
+      new Icon(Icons.check, color: Colors.grey,);
+    // new StreamBuilder(
+    //   stream: todoListBloc.iconData,
+    //   builder: (context, snapshot) {
+    //     if (snapshot.hasError) {
+    //       print("error");
+    //       return new Text("Error: ${snapshot.error}");
+    //     }
+//    );
+
     var todoListCardBar = new Container(
       padding: EdgeInsets.all(_padding/2),
       child: new Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize:  MainAxisSize.max,
+        mainAxisSize:  MainAxisSize.min,
         children: <Widget>[
-          new StreamBuilder(
-            stream: todoListBloc.iconData,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                print("error");
-                return new Text("Error: ${snapshot.error}");
-              }
-              return new Expanded(
-                flex: 1,
-                child: new Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(bottom: _padding/2),
-                  child: new Icon(snapshot.data),
-                ),
-              );
-            },
+          
+          new Expanded(
+            flex: 1,
+            // expanded container
+            child: new Align(
+              alignment: Alignment.centerLeft,
+              child: _todoListIcon,
+            ),
           ),
-          const Icon(Icons.more_vert),
+          const Icon(Icons.more_vert, color: Colors.grey,),
         ],
       )
     );
