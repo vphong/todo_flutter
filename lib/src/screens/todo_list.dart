@@ -13,13 +13,13 @@ import 'package:todo_flutter/src/widgets.dart';
 class TodoListScreen extends StatefulWidget {
 
   @override
-  _TodoListScreenState createState() => new _TodoListScreenState(); 
+  _TodoListScreenState createState() => _TodoListScreenState(); 
 } 
 
 class _TodoListScreenState extends State<TodoListScreen> {
 
   // TODO: Decide when to create the initial todolist during actual app use
-  TodoListBloc _todoListBloc = new TodoListBloc();
+  TodoListBloc _todoListBloc = TodoListBloc();
 
   @override
   void initState() {
@@ -35,37 +35,31 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-
-    // make sure body fills space with Expanded
-    var body = new Expanded(
-      flex: 1,
-      child: new Container(
-        padding: EdgeInsets.only(left: defaultPadding, right: defaultPadding, bottom: defaultPadding*2),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            new SplashInfo(),
-            new TodoListCard()
-          ],
-        ),
+    var body = Container(
+      padding: EdgeInsets.only(
+        left: defaultPadding, 
+        right: defaultPadding, 
+        bottom: defaultPadding*2
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SplashInfo(),
+          TodoListCard()
+        ],
       ),
     );
 
-    return new TodoListProvider(
+    return TodoListProvider(
       todoListBloc: _todoListBloc,
-      child: new Container( // container for gradient bg
-        width: screenSize.width,
-        height: screenSize.height,
-        child: new Column( // contains appBar + body column
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            appBar,
-            body
-          ],
+      child: Container( // container for gradient bg
+        child: Scaffold( 
+          appBar: appBar,
+          body: body,
+          backgroundColor: Color.fromARGB(0, 0, 0, 0),
         ),
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           gradient: pinkToOrangeGradient,
         ),
       )
@@ -79,11 +73,11 @@ class SplashInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: new ListTileTheme(
+    return Container(
+      child: ListTileTheme(
         textColor: Colors.white,
-        child: new ListTile(
-          title: new Text(
+        child: ListTile(
+          title: Text(
             "Hello, ${_user.name}.", 
             style: const TextStyle(
               fontSize: 22.0,
@@ -99,7 +93,7 @@ class SplashInfo extends StatelessWidget {
 
 class TodoListCard extends StatelessWidget {
 
-  // final TodoList _list = new TodoList();
+  // final TodoList _list = TodoList();
 
   @override
   Widget build(BuildContext context) {
@@ -107,33 +101,33 @@ class TodoListCard extends StatelessWidget {
     TodoListBloc _todoListBloc = TodoListProvider.of(context).todoListBloc;
 
     var _todoListIcon =
-//    new ShaderMask(
+//    ShaderMask(
 //      shaderCallback: (_) {
 //        return pinkToOrangeGradient.createShader(_);
 //        },
 //      blendMode: BlendMode.modulate,
-      new Icon(Icons.check, color: Colors.grey,);
-    // new StreamBuilder(
+      Icon(Icons.check, color: Colors.grey,);
+    // StreamBuilder(
     //   stream: todoListBloc.iconData,
     //   builder: (context, snapshot) {
     //     if (snapshot.hasError) {
     //       print("error");
-    //       return new Text("Error: ${snapshot.error}");
+    //       return Text("Error: ${snapshot.error}");
     //     }
 //    );
 
-    var todoListCardBar = new Container(
+    var todoListCardBar = Container(
       padding: EdgeInsets.all(defaultPadding/2),
-      child: new Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize:  MainAxisSize.min,
         children: <Widget>[
           
-          new Expanded(
+          Expanded(
             flex: 1,
             // expanded container
-            child: new Align(
+            child: Align(
               alignment: Alignment.centerLeft,
               child: _todoListIcon,
             ),
@@ -145,76 +139,39 @@ class TodoListCard extends StatelessWidget {
 
 
 
-    return new Expanded( // expanded to fill body space
+    return Expanded( // expanded to fill body space
       flex: 1,
-      child: new Card(
+      child: Card(
           elevation: 10.0,
           margin: EdgeInsets.only(right: defaultPadding/2.0, left: defaultPadding/2.0),
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(8.0)
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0)
           ),
-          child: new GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context, 
-            new MaterialPageRoute(
-              builder: (_) => ListInfoScreen(todoListBloc: _todoListBloc,)
-            )
-          );
-        },
-        child: new Column(
+          child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(
+                builder: (_) => ListInfoScreen(todoListBloc: _todoListBloc,)
+              )
+            );
+          },
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             todoListCardBar,
-            new ListTile(
-              title: new Text("Tap to open list info."),
+            ListTile(
+              title: Text("Tap to open list info."),
             ),
-            new Expanded(
+            Expanded(
               flex: 1,
-              child: new Hero(
+              child: Hero(
                 tag: 'listInfo',
-                child: new TodoListSummary(todoListBloc: _todoListBloc,),
+                child: TodoListSummary(todoListBloc: _todoListBloc,),
               )
             ),
-            // new RaisedButton(
-            //   child: const Text("Add a todo"),
-            //   onPressed: () {
-            //     todoListBloc.addTodo.add(new Todo());
-            //   },
-            // ),
             // TODO: progress indicator
-            new Container(
-              padding: EdgeInsets.all(defaultPadding),
-              child: new Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  // progress bar
-
-                  // new StreamBuilder(
-                  //   stream: todoListBloc.todoCount,
-                  //   builder: (context, snapshot) {
-
-                  //     if (snapshot.hasError) {
-                  //       return new Text("Error: ${snapshot.error}");
-                  //     }
-
-                  //     if (snapshot.data != null) {
-                  //       return new Text("Data: ${snapshot.data}");
-                  //       // return new LinearProgressIndicator(
-                  //       //   value: .5,
-                  //       //   backgroundColor: Colors.grey,
-                  //       //   // valueColor: Colors.pink,
-                  //       // );
-                  //     }
-                  //     else return new Text("");
-                  //   },
-                  // )
-                  // percent text
-                ],
-              )
-            )
               
             ],
           )

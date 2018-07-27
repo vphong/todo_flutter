@@ -1,11 +1,10 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:uuid/uuid.dart';
 
 // use uuid.v1 for time-based uuids, v4 for random
-Uuid uuid = new Uuid();
+Uuid uuid = Uuid();
 
 class Profile {
   final String _id = uuid.v1();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:todo_flutter/src/screens/todo_list.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
 // TODO:
 // - local cache of todos + user info
@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: screen routes
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Todo',
-      home: new Scaffold(
-        body: new TodoListScreen(),
+      home: Scaffold(
+        body: TodoListScreen(),
       ),
     );
   }

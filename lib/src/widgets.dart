@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:todo_flutter/src/bloc/todo_list_bloc.dart';
-import 'package:todo_flutter/src/models.dart';
 import 'package:todo_flutter/src/util.dart';
 
 // simply a display container for TodoList info, stateless
@@ -16,22 +15,22 @@ class TodoListSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var todoListBloc = TodoListProvider.of(context).todoListBloc;
-      return new Container(
+      return Container(
           padding: EdgeInsets.all(defaultPadding/2),
-          child: new Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               // # of tasks text
-              new StreamBuilder<int>(
+              StreamBuilder<int>(
                 stream: todoListBloc.todoCount,
                 initialData: 0,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return new Text("Error: ${snapshot.error}");
+                    return Text("Error: ${snapshot.error}");
                   }
-                  return new Text(
+                  return Text(
                     "${snapshot.data} Tasks",
                     style: const TextStyle(
                       color: Colors.grey,
@@ -41,14 +40,14 @@ class TodoListSummary extends StatelessWidget {
                 }
               ),
               // list name text
-              new StreamBuilder(
+              StreamBuilder(
                 stream: todoListBloc.name,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return new Text("Error: ${snapshot.error}");
+                    return Text("Error: ${snapshot.error}");
                   }
                   if (snapshot.data != null) {
-                    return new Text(
+                    return Text(
                       snapshot.data,
                       style: const TextStyle(
                         fontSize: 22.0,
@@ -57,7 +56,7 @@ class TodoListSummary extends StatelessWidget {
                     );
                   }
                   else {
-                    return new Text("Empty name.");
+                    return Text("Empty name.");
                   }
                 },
               )

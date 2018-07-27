@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final double defaultPadding = 25.0;
 final String appName = "Todo";
-final Gradient pinkToOrangeGradient = new LinearGradient(
+final Gradient pinkToOrangeGradient = LinearGradient(
   colors: [
     const Color.fromARGB(255, 232, 96, 122),
     const Color.fromARGB(255, 238, 182, 98),
@@ -14,7 +14,7 @@ final Gradient pinkToOrangeGradient = new LinearGradient(
   tileMode: TileMode.clamp
 );
 
-final Gradient blueToGrayTealGradient = new LinearGradient(
+final Gradient blueToGrayTealGradient = LinearGradient(
   colors: [
     const Color.fromARGB(255, 0, 147, 233),
     const Color.fromARGB(255, 128, 208, 199),
@@ -25,8 +25,8 @@ final Gradient blueToGrayTealGradient = new LinearGradient(
   tileMode: TileMode.clamp
 );
 
-final AppBar appBar = new AppBar(
-  title: new Text(
+final AppBar appBar = AppBar(
+  title: Text(
     appName.toUpperCase(), 
     style: const TextStyle(
       fontFamily: 'Raleway',
@@ -38,20 +38,20 @@ final AppBar appBar = new AppBar(
   ),
   centerTitle: true,
   // TODO: navigation icons
-  leading: new IconButton( // menu button
+  leading: IconButton( // menu button
     icon: const Icon(Icons.menu),
     onPressed: () {
       return;
     }
   ),
   actions: <Widget>[
-    new IconButton( // menu button
+    IconButton( // search button
       icon: const Icon(Icons.search),
       onPressed: () {
         return;
       }
     ),
   ],
-  backgroundColor: new Color.fromRGBO(0, 0, 0, 0.0),
+  backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
   elevation: 0.0,
 );

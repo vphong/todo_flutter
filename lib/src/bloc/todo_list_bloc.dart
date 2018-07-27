@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:todo_flutter/src/models.dart';
 
 class TodoListBloc {
-  static TodoList _todoList = new TodoList();
+  static TodoList _todoList = TodoList();
 
   // Output
   Stream<String> get name => _nameSubject.stream;
